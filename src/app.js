@@ -6,8 +6,8 @@ const app = express();
 
 applyMiddleware(app);
 
-const usersRoutes = require("./routes/users");
-app.use(usersRoutes);
+// User Routes
+app.use(require("./routes/auth"));
 
 app.get("/health", (_req, res) => {
   res.send({ message: "Server is running...." });
