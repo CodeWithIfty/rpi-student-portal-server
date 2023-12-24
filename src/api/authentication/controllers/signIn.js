@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const allUser = require("../../../models").user;
 
 const signIn = async (req, res) => {
@@ -9,22 +9,25 @@ const signIn = async (req, res) => {
     const user = await allUser.findOne({ where: { phone_number } });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Compare the provided password with the hashed password in the database
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
+      const user = {
+        phone_number,
+      };
       // Passwords match, user authenticated
-      return res.status(200).json({ message: 'Sign-in successful' });
+      return res.status(200).send({ message: "Sign-in successful", user });
     } else {
       // Incorrect password
-      return res.status(401).json({ message: 'Incorrect password' });
+      return res.status(401).send({ message: "Incorrect password" });
     }
   } catch (error) {
-    console.error('Error signing in:', error);
-    return res.status(500).json({ message: 'Error signing in' });
+    console.error("Error signing in:", error);
+    return res.status(500).send({ message: "Error signing in" });
   }
 };
 
