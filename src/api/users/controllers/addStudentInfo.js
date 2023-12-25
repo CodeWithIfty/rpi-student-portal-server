@@ -1,32 +1,44 @@
-const Student = require("../../../models").Student;
+const Student = require("../../../models").student_info;
 
-const addOrUpdateStudentInfo = async (req, res) => {
-  const { present_education_roll } = req.body;
-  console.log(req.body);
+const addStudentInfo = async (req, res) => {
+  const { rollNumber } = req.params;
+  const studentData = req.body;
+
   try {
-    let existingStudent = await Student.findOne({
-      where: { present_education_roll },
+    // Check if the student exists based on rollNumber
+    const existingStudent = await Student.findOne({
+      where: {
+        present_education_roll: rollNumber,
+      },
     });
 
     if (existingStudent) {
-      // If the student exists, update their information
-      await existingStudent.update(req.body);
-      res.status(200).json({
-        message: "Student information updated successfully",
-        data: existingStudent,
+      // If student exists, update the data
+      await Student.update(studentData, {
+        where: {
+          present_education_roll: rollNumber,
+        },
       });
+
+      return res
+        .status(200)
+        .json({ message: "Student data updated successfully." });
     } else {
-      // If the student doesn't exist, create a new student
-      const newStudent = await Student.create(req.body);
-      res.status(201).json({
-        message: "New student created successfully",
-        data: newStudent,
+      // If student doesn't exist, create a new record
+      await Student.create({
+        ...studentData,
+        present_education_roll: rollNumber, // Ensure rollNumber is set in the data
       });
+
+      return res
+        .status(201)
+        .json({ message: "New student data created successfully." });
     }
   } catch (error) {
-    console.error("Error adding or updating student:", error);
-    res.status(500).json({ message: "Error adding or updating student" });
+    return res.status(500).json({ message: error.message }); // Handle other errors
   }
 };
 
-module.exports = addOrUpdateStudentInfo;
+module.exports = {
+  addStudentInfo,
+};

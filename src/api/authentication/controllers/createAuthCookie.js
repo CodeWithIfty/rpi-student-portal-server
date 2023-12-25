@@ -3,6 +3,7 @@ const createToken = require("../../../lib/authentication/createToken");
 const createAuthCookie = (req, res, next) => {
   try {
     const user = req.body;
+    console.log( "This user",req.body);
     const token = createToken(user);
 
     // Set expiration time for the cookie (in milliseconds)

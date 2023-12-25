@@ -1,12 +1,24 @@
 const {
   checkEligibility,
 } = require("../../api/authentication/controllers/checkEligibility");
+const createAuthCookie = require("../../api/authentication/controllers/createAuthCookie");
+const {
+  createUser,
+} = require("../../api/authentication/controllers/createUser");
+const {
+  getExistingStudentInfo,
+} = require("../../api/authentication/controllers/getExistingStudentInfo");
+const logout = require("../../api/authentication/controllers/logout");
 const { signIn } = require("../../api/authentication/controllers/signIn");
-const addUser = require("../../api/users/controllers/addUser");
 const router = require("express").Router();
 
 router.get("/VerifyEligibility/:rollNumber", checkEligibility);
-router.post("/addUser", addUser);
+router.get("/getExistingStudentInfo/:rollNumber", getExistingStudentInfo);
+
+router.post("/register", createUser);
+
 router.post("/signIn", signIn);
 
+router.post("/jwt", createAuthCookie);
+router.get("/logout", logout);
 module.exports = router;

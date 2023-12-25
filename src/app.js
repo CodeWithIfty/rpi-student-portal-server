@@ -15,21 +15,6 @@ app.get("/health", (_req, res) => {
   res.send({ message: "Server is running...." });
 });
 
-const connection = mysql.createConnection({
-  host: "103.148.14.130",
-  user: "rpistude_testapi",
-  password: "rpistude_testapi",
-  database: "rpistude_testapi",
-});
-
-connection.connect();
-
-app.get("/api/scholership_entries", (req, res) => {
-  connection.query("SELECT * FROM scholership_entry", (error, results) => {
-    if (error) throw error;
-    res.json(results);
-  });
-});
 
 app.all("*", (req, _res, next) => {
   const error = new Error(`Can't find ${req.originalUrl} on the server`);
