@@ -6,7 +6,7 @@ const port = process.env.PORT || 5001;
 
 const main = async () => {
   server.listen(port, () => {
-    console.log(`SurveyOcean Server is running on port ${port}`);
+    console.log(` Server is running on port ${port}`);
   });
 };
 
