@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Use Node.js 16.x
         run: |
           sudo apt-get install curl # Install curl (if not installed)
           curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
           sudo apt-get install -y nodejs
+
+      - name: Checkout code
+        run: |
+          npm install actions/setup-node@v2 -g
+          actions/setup-node@v2
+          echo "Node.js version: $(node -v)" # Verify Node.js version for debugging
 
       - name: Install dependencies
         run: npm install
