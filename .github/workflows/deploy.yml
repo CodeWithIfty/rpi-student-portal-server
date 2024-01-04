@@ -13,10 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: Set up Node.js 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: '16' # Change to your Node.js version
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
@@ -24,4 +24,4 @@ jobs:
       - name: Deploy to cPanel
         run: |
           npm install ftp-deploy --save-dev
-          npx ftp-deploy --host ${{ secrets.ftp_server }} --user ${{ secrets.ftp_user }} --password ${{ secrets.ftp_password }} --local-dir /home/rpistude/test.rpi.gov.bd --remote-dir /public_html
+          npx ftp-deploy --host ${{ secrets.FTP_SERVER }} --user ${{ secrets.FTP_USER }} --password ${{ secrets.FTP_PASSWORD }} --local-dir /home/rpistude/test.rpi.gov.bd --remote-dir /public_html
