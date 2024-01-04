@@ -1,0 +1,38 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main # Change this to your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Change to your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project (if required)
+        run: npm run build # Replace this if your project requires a build step
+
+      - name: Deploy to cPanel
+        run: |
+          # Add your deployment script here
+          # For example:
+          # - Transfer files to cPanel using FTP or SSH
+          # - Restart the server
+
+          # Sample script to transfer files via FTP (adjust as per your setup)
+          # You may need to install ftp-deploy or any other FTP-related package
+          # npm install ftp-deploy --save-dev
+          # Replace FTP_HOST, FTP_USERNAME, FTP_PASSWORD, REMOTE_DIR with your credentials
+          npx ftp-deploy --host FTP_SERVER --user FTP_USER --password FTP_PASSWORD --local-dir /home/rpistude/test.rpi.gov.bd --remote-dir /home/rpistude/test.rpi.gov.bd

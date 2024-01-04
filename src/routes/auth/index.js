@@ -12,7 +12,7 @@ const logout = require("../../api/authentication/controllers/logout");
 const { signIn } = require("../../api/authentication/controllers/signIn");
 const router = require("express").Router();
 
-router.get("/VerifyEligibility/:rollNumber", checkEligibility);
+router.post("/VerifyEligibility", checkEligibility);
 router.get("/getExistingStudentInfo/:rollNumber", getExistingStudentInfo);
 
 router.post("/register", createUser);

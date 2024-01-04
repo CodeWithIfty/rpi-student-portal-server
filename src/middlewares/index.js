@@ -7,7 +7,7 @@ const { LOCAL_CLIENT, CLIENT } = require("../config/defaults");
 const applyMiddleware = (app) => {
   app.use(
     cors({
-      origin: [LOCAL_CLIENT, CLIENT],
+      origin: [LOCAL_CLIENT, CLIENT, "http://localhost:5173"],
       credentials: true,
     })
   );

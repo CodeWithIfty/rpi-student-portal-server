@@ -1,22 +1,32 @@
-const eligible_student_list = require("../../../models").eligible_student_list; // Import your Sequelize model
+const eligible_student_list = require("../../../models").eligible_student_list;
+const allUser = require("../../../models").user;
 
 const checkEligibility = async (req, res) => {
-  const { rollNumber } = req.params;
+  const { rollNumber, registrationNumber } = req.body;
 
   try {
-    const student = await eligible_student_list.findOne({
-      where: { rollNumber: rollNumber }, // Find a student with the given rollNumber
+    const existingUser = await allUser.findOne({
+      where: {
+        rollNumber: rollNumber,
+      },
     });
+    if (existingUser) {
+      return res.status(400).json({ message: "User Already Registered" });
+    }
 
+    const student = await eligible_student_list.findOne({
+      where: {
+        rollNumber: rollNumber,
+        registrationNumber: registrationNumber, // Check both rollNumber and registrationNumber
+      },
+    });
     if (student) {
-      // If student with the rollNumber exists
       return res.status(200).json({ message: "Success! You are eligible." });
     } else {
-      // If student with the rollNumber doesn't exist
       return res.status(404).json({ message: "You are not eligible." });
     }
   } catch (error) {
-    return res.status(500).json({ message: error.message }); // Handle other errors
+    return res.status(500).json({ message: error.message });
   }
 };
 
