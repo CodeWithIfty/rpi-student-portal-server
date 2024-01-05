@@ -2,7 +2,7 @@ const Student = require("../../../models").student_info;
 
 const getSingleStudentData = async (req, res) => {
   const { student_mobile_number } = req.params; // Assuming the student ID is passed in the URL parameters
-
+  const user = req.user;
   try {
     const student = await Student.findOne({ where: { student_mobile_number } });
 
