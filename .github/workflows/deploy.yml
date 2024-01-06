@@ -1,31 +1,16 @@
-name: Deploy to cPanel
-
-on:
-  push:
-    branches:
-      - main
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: Use Node.js 16.x
-        run: |
-          sudo apt-get install curl # Install curl (if not installed)
-          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-
-      - name: Checkout code
-        run: |
-          npm install actions/setup-node@v2 -g
-          actions/setup-node@v2
-          echo "Node.js version: $(node -v)" # Verify Node.js version for debugging
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Deploy to cPanel
-        run: |
-          npm install ftp-deploy --save-dev
-          npx ftp-deploy --host ${{ secrets.ftp_server }} --user ${{ secrets.ftp_user }} --password ${{ secrets.ftp_password }} --local-dir / --remote-dir /home/rpistude/test.rpi.gov.bd
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.ftp_server }}
+        username: ${{ secrets.ftp_user }}
+        password: ${{ secrets.ftp_password }}
