@@ -12,6 +12,6 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: ftp.rpistudent.com
-        username: ${{ secrets.FTP.FTP_USER }}
+        username: test_server@test.rpi.gov.bd
         password: ${{ secrets.ftp_password }}
         server-dir: /home/rpistude/test.rpi.gov.bd
