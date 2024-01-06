@@ -14,4 +14,5 @@ jobs:
         server: podma-bd-cp1.hostever.com
         username: test_server@test.rpi.gov.bd
         password: V2Rs*)4h(K,e
+        local-dir: /src
         server-dir: /
