@@ -11,7 +11,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: podma-bd-cp1.hostever.com:2083
+        server: podma-bd-cp1.hostever.com
         username: test_server@test.rpi.gov.bd
         password: V2Rs*)4h(K,e
         server-dir: /home/rpistude/test.rpi.gov.bd/
